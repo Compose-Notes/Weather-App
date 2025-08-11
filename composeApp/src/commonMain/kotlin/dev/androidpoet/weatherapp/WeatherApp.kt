@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import weather_app.composeapp.generated.resources.*
 import dev.androidpoet.weatherapp.theme.AppTheme
 import dev.androidpoet.weatherapp.theme.LocalThemeIsDark
+import dev.androidpoet.weatherapp.ui.WeatherHomeScreen
 import kotlinx.coroutines.isActive
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
@@ -98,5 +99,23 @@ internal fun App() = AppTheme {
         ) {
             Text(stringResource(Res.string.open_github))
         }
+    }
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun WeatherApp() {
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Weather") },
+                scrollBehavior = scrollBehavior
+            )
+        },
+        modifier = Modifier.fillMaxSize()
+    ) { innerPadding ->
+        WeatherHomeScreen(contentPadding = innerPadding)
     }
 }
