@@ -1,4 +1,4 @@
-package dev.androidpoet.weatherapp.presentation
+package dev.androidpoet.weatherapp.presentation.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,14 +23,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.Key.Companion.R
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import dev.androidpoet.weatherapp.data.remote.FeelsLike
+import dev.androidpoet.weatherapp.data.remote.Temp
+import dev.androidpoet.weatherapp.data.remote.Weather
+import dev.androidpoet.weatherapp.data.remote.WeekForeCastComposeModel
 import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.datetime.todayIn
@@ -42,7 +41,6 @@ import weather_app.composeapp.generated.resources.icon_right
 import weather_app.composeapp.generated.resources.weather_clouds
 import weather_app.composeapp.generated.resources.weather_precipitate
 import kotlin.collections.listOf
-import kotlin.coroutines.coroutineContext
 import kotlin.math.max
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
@@ -96,7 +94,7 @@ fun DayForeCastRow(modifier: Modifier,data: List<WeekForeCastComposeModel>){
         val scope = rememberCoroutineScope()
         Spacer(modifier=Modifier.size(10.dp))
         Row (verticalAlignment =Alignment.CenterVertically, modifier = modifier.fillMaxWidth()){
-
+            // have used animate scroll to avoid flickering for button scrolling
             Image(painter = painterResource(Res.drawable.icon_left),null,modifier = Modifier.size(24.dp).clickable(indication = null, interactionSource = null,onClick = {
                 scope.launch {
                     listState.animateScrollToItem(max(0, listState.firstVisibleItemIndex-1))
@@ -529,48 +527,3 @@ fun getDummyWeatherForecast(): List<WeekForeCastComposeModel> {
 
 
 }
-data class WeekForeCastComposeModel(
-    val dt: Long,
-    val sunrise: Long,
-    val sunset: Long,
-    val moonrise: Long,
-    val moonset: Long,
-    val moonPhase: Double,
-    val summary: String,
-    val temp: Temp,
-    val feelsLike: FeelsLike,
-    val pressure: Long,
-    val humidity: Long,
-    val dewPoint: Double,
-    val windSpeed: Double,
-    val windDeg: Long,
-    val windGust: Double,
-    val weather: List<Weather>,
-    val clouds: Long,
-    val pop: Double,
-    val rain: Double,
-    val uvi: Double,
-)
-
-data class Temp(
-    val day: Double,
-    val min: Double,
-    val max: Double,
-    val night: Double,
-    val eve: Double,
-    val morn: Double,
-)
-
-data class FeelsLike(
-    val day: Double,
-    val night: Double,
-    val eve: Double,
-    val morn: Double,
-)
-
-data class Weather(
-    val id: Long,
-    val main: String,
-    val description: String,
-    val icon: String,
-)
