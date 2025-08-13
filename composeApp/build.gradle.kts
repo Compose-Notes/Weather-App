@@ -11,6 +11,7 @@ plugins {
 }
 
 kotlin {
+
     androidTarget {
         //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
         instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
@@ -64,12 +65,17 @@ kotlin {
             implementation(libs.androidx.activityCompose)
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.ktor.client.okhttp)
+            implementation(libs.logging.interceptor)
         }
 
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
 
+    }
+
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 }
 
@@ -98,4 +104,5 @@ dependencies {
 buildConfig {
     // BuildConfig configuration here.
     // https://github.com/gmazzo/gradle-buildconfig-plugin#usage-in-kts
+    buildConfigField<String>("BASE_URL", "https://api.openweathermap.org/data/2.5/")
 }
