@@ -35,6 +35,7 @@ import weather_app.composeapp.generated.resources.opensans_bold
 import weather_app.composeapp.generated.resources.poppins_bold
 import weather_app.composeapp.generated.resources.poppins_regular
 import weather_app.composeapp.generated.resources.weather_logo
+import weather_app.composeapp.generated.resources.weather_precipitate
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -70,7 +71,7 @@ fun OnboardingScreen() {
             modifier = Modifier.fillMaxSize()
         ) {
             Image(
-                painter = painterResource(Res.drawable.weather_logo),
+                painter = painterResource(Res.drawable.weather_precipitate),
                 contentDescription = "Weather Icon",
                 modifier = Modifier.size(428.dp)
             )
