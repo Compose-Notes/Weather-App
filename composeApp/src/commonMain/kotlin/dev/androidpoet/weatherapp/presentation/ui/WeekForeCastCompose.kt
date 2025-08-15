@@ -63,21 +63,20 @@ fun DayForeCastCompose(modifier: Modifier,model: DailyWeatherRowModel,onClick: (
 
             Column (horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(top=10.dp, bottom = 5.dp, start = 5.dp, end = 5.dp)){
 
-// Fixed version of your code
                 Text(
                     text = model.temp,
                     modifier = Modifier
                         .padding(5.dp)
                         .background(Color.Transparent),
                     style = TextStyle(
-                        fontFamily = poppinsRegular, // Fixed: Wrap in FontFamily
+                        fontFamily = poppinsRegular,
                         color = Color.White
                     )
                 )
 
                 Image(
                     painter = painterResource(model.img),
-                    contentDescription = null, // Fixed: Added parameter name
+                    contentDescription = null,
                     modifier = Modifier
                         .size(36.dp)
                         .background(Color.Transparent)
@@ -88,8 +87,8 @@ fun DayForeCastCompose(modifier: Modifier,model: DailyWeatherRowModel,onClick: (
                     modifier = Modifier
                         .padding(5.dp)
                         .background(Color.Transparent),
-                    style = TextStyle( // Fixed: Use style instead of fontStyle
-                        fontFamily = poppinsRegular, // Fixed: Wrap in FontFamily and use style
+                    style = TextStyle(
+                        fontFamily = poppinsRegular,
                         color = Color.White
                     )
                 )            }
@@ -120,8 +119,7 @@ fun DayForeCastRow(modifier: Modifier , viewModel: WeatherForeCastViewModel){
         Spacer(modifier=Modifier.size(10.dp))
 
         Row (verticalAlignment =Alignment.CenterVertically, modifier = modifier.fillMaxWidth()){
-            // have used animate scroll to avoid flickering for button scrolling
-            Image(painter = painterResource(Res.drawable.icon_left),null,modifier = Modifier.size(24.dp).clickable(indication = null, interactionSource = null,onClick = {
+             Image(painter = painterResource(Res.drawable.icon_left),null,modifier = Modifier.size(24.dp).clickable(indication = null, interactionSource = null,onClick = {
                 scope.launch {
                     listState.animateScrollToItem(max(0, listState.firstVisibleItemIndex-1))
                 }
