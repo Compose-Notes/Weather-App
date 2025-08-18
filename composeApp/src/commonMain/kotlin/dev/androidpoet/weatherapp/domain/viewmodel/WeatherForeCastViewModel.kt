@@ -25,16 +25,12 @@ import kotlin.time.Instant
 
 class WeatherForeCastViewModel : ViewModel(){
 
-    var job: Job?=null
 
     val _sevenDayForeCast = MutableStateFlow<SevenDayWeatherUiState>(SevenDayWeatherUiState(emptyList()))
     val sevenDayForeCast :StateFlow<SevenDayWeatherUiState> = _sevenDayForeCast
 
     @OptIn(ExperimentalTime::class)
-    fun getSevenDayForeCast(response : List<DailyData>) {
-        job?.cancel()
-
-        job = viewModelScope.launch {
+    fun getSevenDayForeCast(response : List<DailyData>)  = viewModelScope.launch {
             _sevenDayForeCast.value  = SevenDayWeatherUiState(emptyList())
             val list = mutableListOf<DailyWeatherRowModel>()
             response.forEach { data ->
@@ -59,11 +55,7 @@ class WeatherForeCastViewModel : ViewModel(){
             }
             _sevenDayForeCast.value = SevenDayWeatherUiState(list)
         }
-    }
 
-
-    init {
-    }
 
 
 
